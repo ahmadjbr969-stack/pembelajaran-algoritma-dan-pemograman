@@ -1,0 +1,61 @@
+def validasi(nilai):
+    return 0 <= nilai <= 100
+
+
+nama = input("Masukkan nama mahasiswa: ")
+nim = input("Masukkan NIM: ")
+
+tugas = float(input("Nilai tugas: "))
+uts = float(input("Nilai UTS: "))
+uas = float(input("Nilai UAS: "))
+kehadiran = float(input("Kehadiran (0-100): "))
+
+# Validasi nilai
+if not all(validasi(n) for n in [tugas, uts, uas, kehadiran]):
+    print("Error: Nilai harus antara 0 sampai 100.")
+
+else:
+    # Menghitung nilai akhir
+    akhir = tugas * 0.3 + uts * 0.3 + uas * 0.4
+
+    # Menentukan nilai huruf
+    if akhir >= 85:
+        huruf = "A"
+    elif akhir >= 70:
+        huruf = "B"
+    elif akhir >= 60:
+        huruf = "C"
+    elif akhir >= 50:
+        huruf = "D"
+    else:
+        huruf = "E"
+
+    # Menentukan keterangan
+    match huruf:
+        case "A":
+            keterangan = "Sangat Baik"
+        case "B":
+            keterangan = "Baik"
+        case "C":
+            keterangan = "Cukup"
+        case "D":
+            keterangan = "Kurang"
+        case "E":
+            keterangan = "Sangat Kurang"
+
+    # Menentukan status kelulusan
+    if huruf == "E":
+        status = "Tidak Lulus (nilai kurang)"
+    elif kehadiran >= 75:
+        status = "Lulus"
+    else:
+        status = "Tidak Lulus (kehadiran kurang)"
+
+    # Menampilkan hasil
+    print("\n=== HASIL NILAI MAHASISWA ===")
+    print("Nama:", nama)
+    print("NIM:", nim)
+    print("Nilai Akhir:", round(akhir, 2))
+    print("Nilai Huruf:", huruf)
+    print("Keterangan:", keterangan)
+    print("Status:", status)
